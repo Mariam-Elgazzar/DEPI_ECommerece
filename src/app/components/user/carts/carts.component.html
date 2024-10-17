@@ -1,0 +1,48 @@
+<div class="cartbox">
+    <h1 class="text-danger">shopping cart</h1>
+    <div class="headcart">
+        <p class="lead">you have <label class="text-danger">{{cartproducts.length}}</label> item in your cart</p>
+        <span class="text-danger card-header" (click)="clearcart()">clear shopping cart</span>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>price</th>
+                <th style="width: 25%;">quantity</th>
+                <th>total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of cartproducts;let index=index" >
+                <td><img [src]="item.item.image" style="width: 80px;height: 80px;border-radius: 50%;" alt=""></td>
+                <td>{{item.item.title}}</td>
+                <td>{{item.item.price}}</td>
+                <td>
+                    <div class="quantity">
+                        <button class="btn btn-dark" (click)="increaseamount(index)">+</button>
+                        <input type="number" class="form-control" (change)="detectchange()" [(ngModel)]="item.quantity" min="1">
+                        <button class="btn btn-dark" (click)="decreaseamount(index)">-</button>
+                    </div>
+                </td>
+                <td>{{item.item.price *item.quantity}} L.E</td>
+                <td>
+                    <button class="btn btn-danger" (click)="deleteproduct(index)">delete</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>total : {{totalprice}} L.E</th>
+                <th><button class="btn btn-success" (click)="addcart()">order now</button></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success"><strong>well done!</strong>your order is successfully send</div>

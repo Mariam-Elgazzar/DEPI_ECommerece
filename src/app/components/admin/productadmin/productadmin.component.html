@@ -1,0 +1,83 @@
+<nav class="navbar bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">market-admin</a>
+      <ul class="navbar-nav t mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link " style="cursor: pointer;" routerLink="" routerlinkActive="active">products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link "style="cursor: pointer;" routerLink="cart" routerlinkActive="active">cart</a>
+        </li>
+      </ul>
+    </div>
+</nav>
+<div class="d-flex justify-content-start mt-3">
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      add product
+    </button></div>
+<table class="table table-stripped text-center">
+  <thead>
+      <tr>
+          <th>image</th>
+          <th>name</th>
+          <th>category</th>
+          <th>price</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of products">
+          <th><img [src]="item.image" alt="" style="width: 80px;height: 80px;border-radius: 50%;"></th>
+          <th>{{item.title}}</th>
+          <th>{{item.category}}</th>
+          <th>{{item.price}} L.E</th>
+          <th><button class="btn btn-warning"data-bs-toggle="modal" data-bs-target="#exampleModal"(click)="update(item)" >update</button></th>
+      </tr>
+  </tbody>
+</table>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 900px !important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">products</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="row">
+              <div class="col-md-4 col-sm-12">
+                  <label for="">title</label>
+                  <input type="text" formControlName="title"  class="form-control" placeholder="title">
+              </div>
+              <div class="col-md-4 col-sm-12">
+                  <label for="">price</label>
+                  <input type="text" formControlName="price"  class="form-control" placeholder="price">
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <app-select [data]="category" [title]="'categories'" [select]="form.value.category" [all]="false" (selectedValue)="getselectedcategory($event)"></app-select>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                  <label for="image">image</label>
+                  <img [src]="base64" alt="">
+                  <input type="file" class="form-control" (change)="getimagepath($event)" >
+              </div>
+              <div class="col-md-8 col-sm-12">
+                  <label for="image">description</label>
+                  <textarea class="form-control" formControlName="description"  placeholder="type here ..."></textarea>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                  <button class="btn btn-success"[disabled]="!form.valid" (click)="addproduct()" >add product</button>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
